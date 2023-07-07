@@ -7,8 +7,13 @@ org.  This eliminates the need for every user to get their own API key from the 
 Usage can be tracked and costs per user can be calculated.  For organizations with many departments, this wrapper 
 helps track monthly costs by department. 
 
-To run the service locally, either use Docker or run:
+To run the service locally:
 ```commandline
+# with Docker
+docker build -t api-wrapper .
+docker run -p 8080:8080 api-wrapper
+
+# without Docker
 python -m pip install -r requirements.txt
 uvicorn src.main:app
 ```
@@ -50,3 +55,43 @@ pytest test/test_crud.py
 pytest test/test_main.py
 pytest test/test_security.py
 ```
+
+## Building and Deploying to Kubernetes
+
+Build and tag the image locally, and then run it to make sure all is well.
+
+Assuming you have a remote repository, push it there.
+
+### Test K8s Deployment Locally
+
+Install [Minikube](https://minikube.sigs.k8s.io/docs/start/) and [kubeval](https://kubeval.instrumenta.dev/installation/) (optional).
+
+Start Minikube. The first time it starts, it will download Kubernetes, so give it a minute.
+
+```
+minikube start
+```
+
+Make sure you see the add-ons ingress and ingress-dns enabled. If they are not enabled automatically, you can do it:
+
+```
+minikube addons enable ingress
+minikube addons enable ingress-dns
+```
+
+Make sure the image pull policy in `k8s/wrapper-deployment.yaml` is set to never: `imagePullPolicy: Never`. 
+
+`cd` into the `k8s/` folder and apply the manifests:
+
+```
+kubectl apply -f .
+```
+
+Check to see everything is running:
+
+```
+kubectl get pods -n semantic-search
+kubectl get ingress -n semantic-search
+```
+
+Go to the HTTP and port specified in the ingress, e.g. http://192.168.49.2:80

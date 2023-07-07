@@ -1,0 +1,6 @@
+kind: Namespace
+apiVersion: v1
+metadata:
+  name: semantic-search
+  labels:
+    name: semantic-search

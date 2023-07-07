@@ -1,0 +1,13 @@
+# Ignore unit tests
+test/
+
+# Ignore research
+research/
+
+# Ignore unnecessary data
+.db
+
+# Ignore other files
+.gitignore
+LICENSE
+README.md

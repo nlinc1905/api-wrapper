@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: api-wrapper-deployment
+  namespace: semantic-search
+  labels:
+    app: api-wrapper
+spec:
+  selector:
+    matchLabels:
+      app: api-wrapper
+  replicas: 1
+  revisionHistoryLimit: 1
+  template:
+    metadata:
+      labels:
+        app: api-wrapper
+    spec:
+      containers:
+      - name: api-wrapper
+        # image: us-central1-docker.pkg.dev/queryable-docs-dev/queryable-docs-docker-repository/api-wrapper:latest
+        image: api-wrapper
+        imagePullPolicy: Never  # Always
+        ports:
+        - name: serviceport
+          containerPort: 8080
+          protocol: TCP

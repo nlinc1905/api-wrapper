@@ -1,0 +1,47 @@
+# See https://pre-commit.com for more information
+# See https://pre-commit.com/hooks.html for more hooks
+repos:
+-   repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v3.2.0
+    hooks:
+    -   id: trailing-whitespace
+    -   id: end-of-file-fixer
+    -   id: check-yaml
+    -   id: check-added-large-files
+# install pylint with pip from requirements.txt
+-   repo: local
+    hooks:
+    -   id: pylint
+        name: pylint
+        entry: pylint ./service
+        language: system
+        types: [python]
+        args:
+        - --max-line-length=80
+        - --fail-under=0
+        - --fail-on=F,E
+        - --exit-zero
+# install pytest with pip from requirements.txt
+-   repo: local
+    hooks:
+    -   id: pytest-main
+        name: pytest-main
+        entry: pytest test/test_main.py
+        language: system
+        types: [python]
+        pass_filenames: false
+        always_run: true
+    - id: pytest-crud
+      name: pytest-crud
+      entry: pytest test/test_crud.py
+      language: system
+      types: [ python ]
+      pass_filenames: false
+      always_run: true
+    - id: pytest-security
+      name: pytest-security
+      entry: pytest test/test_security.py
+      language: system
+      types: [ python ]
+      pass_filenames: false
+      always_run: true

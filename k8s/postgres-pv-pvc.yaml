@@ -2,13 +2,14 @@ kind: PersistentVolume
 apiVersion: v1
 metadata:
   name: postgres-volume
+  namespace: semantic-search
   labels:
     type: local  # local persistent volume
     app: postgres
 spec:
   storageClassName: manual
   capacity:
-    storage: 50Mb
+    storage: 50M
   accessModes:
     - ReadWriteMany
   hostPath:
@@ -19,6 +20,7 @@ kind: PersistentVolumeClaim
 apiVersion: v1
 metadata:
   name: postgres-pvc
+  namespace: semantic-search
   labels:
     app: postgres
 spec:
@@ -27,4 +29,4 @@ spec:
     - ReadWriteMany
   resources:
     requests:
-      storage: 50Mb
+      storage: 50M
