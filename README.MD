@@ -1,6 +1,6 @@
 # API Wrapper
 
-This API is a wrapper for another API (OpenAI's API).  Its purpose is to allow organizations to administer use of a 
+This API is a wrapper for OpenAI's API.  Its purpose is to allow organizations to administer use of a 
 single API key.  So the organization purchases a single key from the vendor and gives access to users within the 
 org.  This eliminates the need for every user to get their own API key from the vendor.  
 
@@ -13,9 +13,13 @@ python -m pip install -r requirements.txt
 uvicorn src.main:app
 ```
 
+## Using Postgres
+
+This API uses Postgres to store user data in dev and prod environments.  See the K8s manifests for details.
+
 ## Using SQLite
 
-This API uses SQLite to store user data.  To access the DB from the command line, it needs to be installed:
+This API uses SQLite to store user data in a test (local) environment.  To access the DB from the command line, it needs to be installed:
 
 ```commandline
 sudo apt install sqlite3
