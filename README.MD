@@ -108,7 +108,6 @@ To delete everything:
 
 ```commandline
 kubectl delete namespaces semantic-search
-kubectl delete pvc postgres-volume
 kubectl get pv
 kubectl delete pv <pv>
 ```
