@@ -18,9 +18,8 @@ spec:
     spec:
       containers:
       - name: api-wrapper
-        # image: us-central1-docker.pkg.dev/queryable-docs-dev/queryable-docs-docker-repository/api-wrapper:latest
-        image: api-wrapper
-        imagePullPolicy: Never  # Always
+        image: us-central1-docker.pkg.dev/queryable-docs-dev/queryable-docs-docker-repository/api-wrapper:latest
+        imagePullPolicy: Always
         ports:
         - name: serviceport
           containerPort: 8080

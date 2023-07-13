@@ -60,7 +60,15 @@ pytest test/test_security.py
 
 Build and tag the image locally, and then run it to make sure all is well.
 
-Assuming you have a remote repository, push it there.
+Assuming you have a remote repository, push it there.  Modify the commands for your region and repository.
+
+```commandline
+gcloud auth login
+gcloud auth configure-docker us-central1-docker.pkg.dev
+docker build -t api-wrapper .
+docker tag api-wrapper us-central1-docker.pkg.dev/queryable-docs-dev/queryable-docs-docker-repository/api-wrapper
+docker push us-central1-docker.pkg.dev/queryable-docs-dev/queryable-docs-docker-repository/api-wrapper
+```
 
 ### Test K8s Deployment Locally
 
@@ -95,3 +103,12 @@ kubectl get ingress -n semantic-search
 ```
 
 Go to the HTTP and port specified in the ingress, e.g. http://192.168.49.2:80
+
+To delete everything:
+
+```commandline
+kubectl delete namespaces semantic-search
+kubectl delete pvc postgres-volume
+kubectl get pv
+kubectl delete pv <pv>
+```
